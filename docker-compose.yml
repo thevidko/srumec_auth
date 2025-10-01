@@ -1,0 +1,34 @@
+# Verze syntaxe pro docker-compose
+version: '3.8'
+
+# Zde definujeme jednotlivé služby (kontejnery) naší aplikace
+services:
+  # Název naší databázové služby
+  db:
+    # Použijeme oficiální image PostgreSQL, verze 16 v odlehčené variantě "alpine"
+    image: postgres:16-alpine
+
+    # Kontejner se vždy automaticky restartuje, pokud spadne
+    restart: always
+
+    # Zde nastavujeme proměnné prostředí uvnitř kontejneru
+    environment:
+      # DŮLEŽITÉ: Nastavte stejné hodnoty, jako máte v .env souboru!
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: srumec_auth
+
+    # Mapování portů. Port 5432 zevnitř kontejneru "vystrčíme" ven
+    # na port 5432 na našem počítači (localhost).
+    # Díky tomu se naše FastAPI aplikace bude moci připojit na localhost:5432.
+    ports:
+      - "5432:5432"
+
+    # Správa dat. Tímto zajistíme, že data databáze zůstanou uložena,
+    # i když kontejner smažeme a znovu vytvoříme.
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+# Definice "pojmenovaného volume" pro perzistentní ukládání dat
+volumes:
+  postgres_data:
