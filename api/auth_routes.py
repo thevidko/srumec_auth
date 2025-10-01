@@ -1,6 +1,7 @@
-from fastapi import APIRouter, Depends, status, HTTPException
+from fastapi import APIRouter, Depends, status, HTTPException, Request
 from sqlalchemy.orm import Session
-
+from jose import JWTError, jwt
+from core.config import settings
 from schemas import user_schema
 from services import auth_service
 from db.deps import get_db
@@ -46,3 +47,27 @@ async def login_for_access_token(
     )
 
     return {"access_token": access_token, "token_type": "bearer"}
+
+@router.get("/validate")
+async def validate_token(request: Request):
+    """
+    Tento endpoint slouží POUZE pro interní ověření tokenu z API Gateway.
+    Vrátí 200 OK, pokud je token platný, jinak 401.
+    """
+    token = None
+    auth_header = request.headers.get('Authorization')
+    if auth_header and auth_header.startswith('Bearer '):
+        token = auth_header.split(" ")[1]
+
+    if token is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Token not found")
+
+    try:
+        # Pokusíme se dekódovat token. Pokud selže (neplatný podpis, vypršel),
+        # vyvolá se JWTError.
+        jwt.decode(token, settings.JWT_SECRET_KEY, algorithms=[settings.JWT_ALGORITHM])
+    except JWTError:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
+
+    # Pokud dekódování projde, token je platný.
+    return {"status": "ok"}
