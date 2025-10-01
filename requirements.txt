@@ -11,7 +11,9 @@ alembic
 # --- Konfigurace a Schémata ---
 python-dotenv
 pydantic-settings
+pydantic[email]
 
 # --- Bezpečnost a Autentizace ---
 passlib[bcrypt]
 bcrypt==4.0.1
+python-jose[cryptography]

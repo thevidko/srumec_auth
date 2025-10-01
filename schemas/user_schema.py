@@ -16,8 +16,14 @@ class UserCreate(UserBase):
 class User(UserBase):
     id: int
     created_at: datetime
-
-    # Konfigurace, která Pydanticu řekne, aby četl data i z atributů objektu
-    # (nejen ze slovníku), což je nutné pro konverzi z ORM modelu.
     class Config:
         from_attributes = True
+
+# --- Schémata pro login a token ---
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
