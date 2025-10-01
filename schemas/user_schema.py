@@ -6,13 +6,12 @@ class UserBase(BaseModel):
     email: EmailStr  # EmailStr automaticky validuje, že jde o platný email
 
 
-# -- Schéma pro vytváření uživatele (co přijímáme od klienta) --
+# -- Schéma pro vytváření uživatele--
 class UserCreate(UserBase):
     password: str
 
 
-# -- Schéma pro čtení uživatele (co vracíme klientovi) --
-# Nikdy nevracíme heslo!
+# -- Schéma pro čtení uživatele --
 class User(UserBase):
     id: int
     created_at: datetime

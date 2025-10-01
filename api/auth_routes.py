@@ -42,7 +42,7 @@ async def login_for_access_token(
         )
 
     access_token = auth_service.create_access_token(
-        data={"sub": user.email}  # "sub" (subject) je standardní název pro identifikátor v JWT
+        data={"sub": user.email}
     )
 
     return {"access_token": access_token, "token_type": "bearer"}

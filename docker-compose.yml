@@ -1,5 +1,3 @@
-# Verze je zastaralá, proto ji vynecháváme
-
 services:
   db:
     image: postgres:16-alpine
@@ -17,7 +15,6 @@ services:
     build: .
     command: ["fastapi", "dev", "main.py", "--host", "0.0.0.0"]
 
-    # Změna zde: připojujeme lokální složku do /code
     volumes:
       - .:/code
 
@@ -28,7 +25,6 @@ services:
     depends_on:
       - db
 
-    # Změna zde: cesta k entrypointu je teď v /code
     entrypoint: /code/entrypoint.sh
 
 volumes:
