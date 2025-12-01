@@ -8,7 +8,7 @@ import socket
 import time
 while True:
     try:
-        with socket.create_connection(('db', 5432), timeout=5):
+        with socket.create_connection(('auth-postgres', 5432), timeout=5):
             break
     except OSError:
         time.sleep(1)
