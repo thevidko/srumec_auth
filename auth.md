@@ -9,7 +9,7 @@ Tato mikroslužba se stará o registraci, přihlášení a správu uživatelů p
 ```
 {
     "email": "admin@srumec.com",
-    "name": "Super Admin",
+    "name": "Super Admin",                        HESLO: srumecpass
     "id": "8b2a9bbd-c9b7-4edd-96bd-8b823d28f60b",
     "role": "admin",
     "banned": false,
@@ -17,7 +17,7 @@ Tato mikroslužba se stará o registraci, přihlášení a správu uživatelů p
   },
   {
     "email": "jdostal@srumec.com",
-    "name": "Jiří Dostál",
+    "name": "Jiří Dostál",                        HESLO: srumec
     "id": "0ec2aa38-7899-4b31-bb0d-624764fcbb38",
     "role": "user",
     "banned": false,
@@ -25,7 +25,7 @@ Tato mikroslužba se stará o registraci, přihlášení a správu uživatelů p
   },
   {
     "email": "jzak@srumec.com",
-    "name": "Jiří Žák",
+    "name": "Jiří Žák",                           HESLO: srumec
     "id": "8778cd23-c681-4ce5-9057-82d439753753",
     "role": "user",
     "banned": false,
